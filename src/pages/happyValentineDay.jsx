@@ -5,39 +5,40 @@ import { Button, Container, Form } from "react-bootstrap";
 const HappyValentineDay = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [duration, setDuration] = useState(0); // Aggiungi uno stato per la durata
-  const [volume, setVolume] = useState(0.5); // Valore iniziale del volume
+  const [duration, setDuration] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
   const audioRef = useRef(null);
 
-  // useEffect(() => {
-  //   const createHeart = () => {
-  //     const heart = document.createElement("div");
-  //     heart.classList.add("heart");
+  useEffect(() => {
+    const createHeart = () => {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
 
-  //     heart.style.left = Math.random() * 100 + "vw";
-  //     heart.style.animationDuration = Math.random() * 2 + 3 + "s";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = Math.random() * 2 + 3 + "s";
 
-  //     heart.innerText = "💗";
+      heart.innerText = "💗";
 
-  //     document.body.appendChild(heart);
+      document.body.appendChild(heart);
 
-  //     setTimeout(() => {
-  //       heart.remove();
-  //     }, 5000);
-  //   };
+      setTimeout(() => {
+        heart.remove();
+      }, 5000);
+    };
 
-  //   const interval = setInterval(createHeart, 300);
+    const interval = setInterval(createHeart, 300);
 
-  //   return () => clearInterval(interval); // Pulizia dell'intervallo quando il componente viene smontato
-  // }, []);
+    return () => clearInterval(interval); // Pulizia dell'intervallo quando il componente viene smontato
+  }, []);
 
   useEffect(() => {
     const audio = audioRef.current;
-    audio.volume = 0.5; // Imposta il volume iniziale qui, se necessario
+    audio.volume = 0.5;
 
     const updateProgress = () => {
       const { currentTime } = audio;
       setProgress((currentTime / duration) * 100);
+      setCurrentTime(currentTime);
     };
 
     audio.addEventListener("timeupdate", updateProgress);
@@ -61,13 +62,15 @@ const HappyValentineDay = () => {
     setIsPlaying(!isPlaying);
   };
 
-  const handleVolumeChange = (e) => {
-    setVolume(e.target.value);
-  };
-
   const handleProgressChange = (e) => {
     const newTime = (e.target.value / 100) * duration;
     audioRef.current.currentTime = newTime;
+  };
+
+  const formatTime = (time) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   };
 
   return (
@@ -78,41 +81,43 @@ const HappyValentineDay = () => {
       <Zoom cascade={true}>
         <h1>Happy Valentine's Day Mob!</h1>
         <img
-          className="circle mb-4"
+          className="circle mb-4 elementoConImmagine"
           src="/assets/image/panda/love_00.jpeg"
           alt=""
         />
       </Zoom>
       <div className="custom-audio-player">
-        <Button onClick={togglePlay} className="play-pause-btn">
-          {isPlaying ? (
-            <Fade>
-              <img src="/assets/icons/pause.svg" alt="" />
-            </Fade>
-          ) : (
-            <Fade>
-              <img src="/assets/icons/play.svg" alt="" />
-            </Fade>
-          )}
-        </Button>
-
         <div className="progress-container">
-          <Form.Control
-            type="range"
-            value={progress}
-            onChange={handleProgressChange}
-            className="progress-bar"
-          />
+          <Fade cascade={true}>
+            <label for="customRange3" className="form-label">
+              Maddison B. ft Cody S. - Valentine
+            </label>
+            <Form.Control
+              type="range"
+              value={progress}
+              onChange={handleProgressChange}
+              className="progress-bar"
+              id="customRange3"
+            />
+            <div className="time-info">
+              <span className="time-current">{formatTime(currentTime)}</span>
+
+              <Button onClick={togglePlay} className="play-pause-btn">
+                {isPlaying ? (
+                  <Fade>
+                    <img src="/assets/icons/pause.svg" alt="" />
+                  </Fade>
+                ) : (
+                  <Fade>
+                    <img src="/assets/icons/play.svg" alt="" />
+                  </Fade>
+                )}
+              </Button>
+
+              <span className="time-duration">{formatTime(duration)}</span>
+            </div>
+          </Fade>
         </div>
-        {/* <Form.Control
-          type="range"
-          min="0"
-          max="1"
-          step="0.01"
-          value={volume}
-          onChange={handleVolumeChange}
-          className="volume-slider"
-        /> */}
       </div>
       <audio
         ref={audioRef}

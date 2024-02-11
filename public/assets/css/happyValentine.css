@@ -21,27 +21,44 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 20px;
-  background-color: pink;
+  /* background-color: pink; */
   border-radius: 50px;
-  padding: 0 15px;
-  margin-bottom: 20px;
+  padding: 12px 26px;
+  width: 250px;
+  margin-bottom: 30px;
 }
 
 button.play-pause-btn {
   background-color: transparent !important;
   margin: 0 !important;
   width: 50px;
+  padding: 0 !important;
 }
 
+.progress-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
 
 .progress-bar, .form-control {
   background-color: white !important;
   padding: 0 !important;
-  width: 150px !important;
+  width: 200px!important;
   appearance: auto !important;
+  accent-color: #CD1D44;
+  cursor: pointer !important;
 }
 
-.volume-slider {
-  width: 100px;
+.time-info{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 180px!important;
 }
+
+.time-info span, .form-label {
+  font-size: 12px;
+}
+
