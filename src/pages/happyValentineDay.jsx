@@ -28,7 +28,7 @@ const HappyValentineDay = () => {
 
     const interval = setInterval(createHeart, 300);
 
-    return () => clearInterval(interval); // Pulizia dell'intervallo quando il componente viene smontato
+    return () => clearInterval(interval); 
   }, []);
 
   useEffect(() => {
@@ -80,11 +80,9 @@ const HappyValentineDay = () => {
     >
       <Zoom cascade={true}>
         <h1>Happy Valentine's Day Mob!</h1>
-        <img
-          className="circle mb-4 elementoConImmagine"
-          src="/assets/image/panda/love_00.jpeg"
-          alt=""
-        />
+
+        <div id="img"></div>
+
       </Zoom>
       <div className="custom-audio-player">
         <div className="progress-container">

@@ -62,3 +62,21 @@ button.play-pause-btn {
   font-size: 12px;
 }
 
+
+#img {
+  background-image: url('../image/panda/love_00.jpeg');
+  background-size: contain; 
+  background-position: center; 
+  background-repeat: no-repeat;
+  border-radius: 50%;
+  overflow: hidden;
+  object-fit: cover;
+  width: 200px;
+  height: 200px;
+  transition: background-image 0.5s ease-in-out;
+
+}
+
+#img:hover {
+  background-image: url('../image/us.png');
+}
