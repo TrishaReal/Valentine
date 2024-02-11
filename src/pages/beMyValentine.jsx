@@ -86,7 +86,7 @@ const BeMyValentine = ({ onBack }) => {
           <Button
             variant="primary"
             onClick={handleYesClick}
-            className="m-2"
+            className="m-2 mx-4"
             style={{ display: showHappyPanda ? "none" : "inline-block" }}
           >
             Yes, sure!
@@ -95,14 +95,13 @@ const BeMyValentine = ({ onBack }) => {
             variant="secondary"
             onMouseOver={handleMoveButton}
             onTouchStart={handleMoveButton}
-            className="m-2"
+            className="m-2 mx-4"
             style={{
-              // position: "absolute",
               transition: "0.5s ease",
               display: showHappyPanda ? "none" : "inline-block",
             }}
           >
-            No
+            Not today.
           </Button>
         </div>
       </Fade>
