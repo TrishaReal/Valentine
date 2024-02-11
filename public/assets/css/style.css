@@ -1,0 +1,96 @@
+body {
+    background-color: #F0E3DE !important;
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
+}
+
+/* INTRO PAGE */
+
+h2, h1,
+button, p {
+    font-family: 'Protest Riot', sans-serif !important;
+}
+
+h1 {
+    color: #CD1D44 !important;
+}
+
+h2 , h1{
+    margin-bottom: 20px !important;
+}
+
+h2 b {
+    color: white !important;
+    background-color: #E8425F;
+}
+
+p {
+   margin-bottom: 2px !important;
+}
+
+button {
+    border: none !important;
+    margin-top: 20px !important;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+.btn-primary {
+    background-color: #CD1D44 !important;
+}
+
+.btn-secondary {
+    background-color: #E8425F !important;
+}
+
+img.circle {
+    border-radius: 50%;
+    overflow: hidden;
+    object-fit: cover;
+    width: 200px;
+    height: 200px;
+}
+
+
+.card {
+    width: 300px;
+    height: 200px;
+    margin: 20px auto;
+    perspective: 1000px;
+    cursor: pointer;
+  }
+  
+  .card-front, .card-inside {
+    width: 100%;
+    height: 100%;
+    background-color: pink;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    position: absolute;
+    backface-visibility: hidden;
+  }
+  
+  .card-front {
+    /* Stili per il fronte del biglietto */
+  }
+  
+  .card-inside {
+    /* Stili per l'interno del biglietto */
+    transform: rotateY(180deg);
+  }
+  
+  .card.open .card-front {
+    transform: rotateY(-180deg);
+  }
+  
+  .card.open .card-inside {
+    transform: rotateY(0deg);
+  }
+  
+  /* Aggiungi qui ulteriori stili per decorare il biglietto */
+  
