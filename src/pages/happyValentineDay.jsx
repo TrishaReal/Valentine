@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Fade, Zoom } from "react-awesome-reveal";
-import { Button, Container, Form, ProgressBar } from "react-bootstrap";
+import { Button, Container, Form } from "react-bootstrap";
 
 const HappyValentineDay = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -9,31 +9,45 @@ const HappyValentineDay = () => {
   const [volume, setVolume] = useState(0.5); // Valore iniziale del volume
   const audioRef = useRef(null);
 
+  // useEffect(() => {
+  //   const createHeart = () => {
+  //     const heart = document.createElement("div");
+  //     heart.classList.add("heart");
+
+  //     heart.style.left = Math.random() * 100 + "vw";
+  //     heart.style.animationDuration = Math.random() * 2 + 3 + "s";
+
+  //     heart.innerText = "💗";
+
+  //     document.body.appendChild(heart);
+
+  //     setTimeout(() => {
+  //       heart.remove();
+  //     }, 5000);
+  //   };
+
+  //   const interval = setInterval(createHeart, 300);
+
+  //   return () => clearInterval(interval); // Pulizia dell'intervallo quando il componente viene smontato
+  // }, []);
+
   useEffect(() => {
-    const createHeart = () => {
-      const heart = document.createElement("div");
-      heart.classList.add("heart");
+    const audio = audioRef.current;
+    audio.volume = 0.5; // Imposta il volume iniziale qui, se necessario
 
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.animationDuration = Math.random() * 2 + 3 + "s";
-
-      heart.innerText = "💗";
-
-      document.body.appendChild(heart);
-
-      setTimeout(() => {
-        heart.remove();
-      }, 5000);
+    const updateProgress = () => {
+      const { currentTime } = audio;
+      setProgress((currentTime / duration) * 100);
     };
 
-    const interval = setInterval(createHeart, 300);
+    audio.addEventListener("timeupdate", updateProgress);
 
-    return () => clearInterval(interval); // Pulizia dell'intervallo quando il componente viene smontato
-  }, []);
+    return () => audio.removeEventListener("timeupdate", updateProgress);
+  }, [duration]);
 
   useEffect(() => {
-    audioRef.current.volume = volume;
-  }, [volume]);
+    setDuration(audioRef.current.duration);
+  }, []);
 
   const togglePlay = () => {
     const audio = audioRef.current;
@@ -46,18 +60,6 @@ const HappyValentineDay = () => {
     }
     setIsPlaying(!isPlaying);
   };
-
-  useEffect(() => {
-    const audio = audioRef.current;
-    const updateProgress = () => {
-      const { currentTime, duration } = audio;
-      setProgress((currentTime / duration) * 100);
-    };
-
-    audio.addEventListener("timeupdate", updateProgress);
-
-    return () => audio.removeEventListener("timeupdate", updateProgress);
-  }, []);
 
   const handleVolumeChange = (e) => {
     setVolume(e.target.value);
@@ -83,15 +85,26 @@ const HappyValentineDay = () => {
       </Zoom>
       <div className="custom-audio-player">
         <Button onClick={togglePlay} className="play-pause-btn">
-          {isPlaying ? "Pause" : "Play"}
+          {isPlaying ? (
+            <Fade>
+              <img src="/assets/icons/pause.svg" alt="" />
+            </Fade>
+          ) : (
+            <Fade>
+              <img src="/assets/icons/play.svg" alt="" />
+            </Fade>
+          )}
         </Button>
-        <Form.Control
-          type="range"
-          value={progress}
-          onChange={handleProgressChange}
-          className="progress-bar"
-        />
-        <Form.Control
+
+        <div className="progress-container">
+          <Form.Control
+            type="range"
+            value={progress}
+            onChange={handleProgressChange}
+            className="progress-bar"
+          />
+        </div>
+        {/* <Form.Control
           type="range"
           min="0"
           max="1"
@@ -99,7 +112,7 @@ const HappyValentineDay = () => {
           value={volume}
           onChange={handleVolumeChange}
           className="volume-slider"
-        />
+        /> */}
       </div>
       <audio
         ref={audioRef}
@@ -116,7 +129,6 @@ const HappyValentineDay = () => {
         </p>
         <p>'cauz I enjoyed making it!</p>
       </Fade>
-      ¯
     </Container>
   );
 };

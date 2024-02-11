@@ -1,16 +1,20 @@
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+
 body {
     background-color: #F0E3DE !important;
-    justify-content: center !important;
+    justify-content: center  !important;
     align-items: center !important;
     text-align: center !important;
+    font-family: 'Protest Riot', sans-serif !important;
 }
 
 /* INTRO PAGE */
-
-h2, h1,
-button, p {
-    font-family: 'Protest Riot', sans-serif !important;
-}
 
 h1 {
     color: #CD1D44 !important;
